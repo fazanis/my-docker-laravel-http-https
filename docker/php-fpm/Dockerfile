@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
     curl
 
 RUN apt-get install -y cron && \
-	apt-get install -y supervisor
+	apt-get install -y supervisor && \
+    apt-get install nodejs -yq
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -35,8 +36,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
-
-RUN npm install
 
 # Copy existing application directory contents
 COPY . /var/www
